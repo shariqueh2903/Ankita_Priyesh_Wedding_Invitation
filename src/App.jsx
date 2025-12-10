@@ -248,10 +248,23 @@ function App() {
   useEffect(() => {
     // Initialize audio
     if (!audioRef.current) {
-      audioRef.current = new Audio("/song.mp3");
-      audioRef.current.loop = true;
-      audioRef.current.volume = 0.3;
-      audioRef.current.preload = "auto";
+      const audio = new Audio();
+      audio.src = "/song.mp3";
+      audio.loop = true;
+      audio.volume = 0.3;
+      audio.preload = "auto";
+
+      // Add error handling
+      audio.addEventListener("error", (e) => {
+        console.error("Audio loading error:", e);
+        console.error("Failed to load audio from:", audio.src);
+      });
+
+      audio.addEventListener("canplaythrough", () => {
+        console.log("Audio loaded and ready to play");
+      });
+
+      audioRef.current = audio;
     }
 
     const audio = audioRef.current;
@@ -259,31 +272,41 @@ function App() {
     // Function to start playing music
     const startMusic = () => {
       if (!hasStartedRef.current && audio.paused) {
-        audio.play()
+        audio
+          .play()
           .then(() => {
             hasStartedRef.current = true;
-            console.log("Music started successfully");
+            console.log("✅ Music started successfully");
           })
           .catch((err) => {
-            console.log("Autoplay blocked, waiting for user interaction:", err);
+            console.log(
+              "⚠️ Autoplay blocked, will play on first user interaction:",
+              err.message
+            );
           });
       }
     };
 
-    // Try immediate autoplay
-    startMusic();
+    // Try immediate autoplay after a short delay
+    const timeout = setTimeout(() => {
+      startMusic();
+    }, 500);
 
     // Fallback: play on any user interaction
     const handleInteraction = () => {
       startMusic();
     };
 
-    const events = ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'];
+    const events = ["click", "touchstart", "scroll", "mousemove", "keydown"];
     events.forEach((event) => {
-      document.addEventListener(event, handleInteraction, { once: true, passive: true });
+      document.addEventListener(event, handleInteraction, {
+        once: true,
+        passive: true,
+      });
     });
 
     return () => {
+      clearTimeout(timeout);
       events.forEach((event) => {
         document.removeEventListener(event, handleInteraction);
       });
