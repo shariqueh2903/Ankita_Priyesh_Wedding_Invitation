@@ -710,11 +710,19 @@ function App() {
           <Divider light />
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-cream/60 text-xs sm:text-sm px-4">
-            <img src="/images/Image9.png" alt="Lotus" className="w-6 h-4 opacity-50" />
+            <img
+              src="/images/Image9.png"
+              alt="Lotus"
+              className="w-6 h-4 opacity-50"
+            />
             <span>{t.coupleNames}</span>
             <span className="text-gold">|</span>
             <span>25th January 2026</span>
-            <img src="/images/Image9.png" alt="Lotus" className="w-6 h-4 opacity-50" />
+            <img
+              src="/images/Image9.png"
+              alt="Lotus"
+              className="w-6 h-4 opacity-50"
+            />
           </div>
 
           {/* Willovate Footer */}
