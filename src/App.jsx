@@ -234,6 +234,7 @@ function App() {
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const [language, setLanguage] = useState("en");
+  const [showWelcome, setShowWelcome] = useState(true);
   const audioRef = useRef(null);
   const hasStartedRef = useRef(false);
 
@@ -246,8 +247,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("🎵 Audio initialization started...");
-
     // Initialize audio
     if (!audioRef.current) {
       const audio = new Audio();
@@ -255,92 +254,23 @@ function App() {
       audio.loop = true;
       audio.volume = 0.3;
       audio.preload = "auto";
-
-      console.log("🎵 Audio element created with src:", audio.src);
-
-      // Add error handling
-      audio.addEventListener("error", (e) => {
-        console.error("❌ Audio loading error:", e);
-        console.error("❌ Failed to load audio from:", audio.src);
-        console.error("❌ Error details:", audio.error);
-      });
-
-      audio.addEventListener("loadstart", () => {
-        console.log("⏳ Audio loading started...");
-      });
-
-      audio.addEventListener("canplay", () => {
-        console.log("✅ Audio can play now");
-      });
-
-      audio.addEventListener("canplaythrough", () => {
-        console.log("✅ Audio loaded completely and ready to play");
-      });
-
       audioRef.current = audio;
     }
-
-    const audio = audioRef.current;
-    if (!audio) {
-      console.error("❌ Audio element not initialized");
-      return;
-    }
-
-    // Function to start playing music
-    const startMusic = () => {
-      console.log("🎵 Attempting to play music...", {
-        paused: audio.paused,
-        hasStarted: hasStartedRef.current,
-        readyState: audio.readyState,
-        src: audio.src,
-      });
-
-      if (!hasStartedRef.current && audio.paused) {
-        audio
-          .play()
-          .then(() => {
-            hasStartedRef.current = true;
-            console.log("✅✅✅ Music started successfully! 🎵🎵🎵");
-          })
-          .catch((err) => {
-            console.warn("⚠️ Autoplay blocked:", err.message);
-            console.log("💡 Music will play on first user interaction");
-          });
-      } else {
-        console.log("ℹ️ Music already started or not paused");
-      }
-    };
-
-    // Try immediate autoplay after a short delay
-    const timeout = setTimeout(() => {
-      console.log("⏱️ Trying autoplay after 500ms delay...");
-      startMusic();
-    }, 500);
-
-    // Fallback: play on any user interaction
-    const handleInteraction = (event) => {
-      console.log("👆 User interaction detected:", event.type);
-      startMusic();
-    };
-
-    const events = ["click", "touchstart", "scroll", "mousemove", "keydown"];
-    console.log("📋 Registering event listeners for:", events);
-    events.forEach((event) => {
-      document.addEventListener(event, handleInteraction, {
-        once: true,
-        passive: true,
-      });
-    });
-
-    return () => {
-      console.log("🧹 Cleaning up audio event listeners");
-      clearTimeout(timeout);
-      events.forEach((event) => {
-        document.removeEventListener(event, handleInteraction);
-      });
-    };
   }, []);
 
+  const handleWelcomeClick = () => {
+    setShowWelcome(false);
+    if (audioRef.current) {
+      audioRef.current
+        .play()
+        .then(() => {
+          console.log("✅ Music started!");
+        })
+        .catch((err) => {
+          console.error("Error playing audio:", err);
+        });
+    }
+  };
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -362,6 +292,35 @@ function App() {
 
   return (
     <div className="font-sans text-gray-800 overflow-x-hidden">
+      {/* Welcome Overlay */}
+      {showWelcome && (
+        <div
+          onClick={handleWelcomeClick}
+          className="fixed inset-0 z-[100] bg-gradient-to-br from-maroon via-maroon/95 to-maroon flex items-center justify-center cursor-pointer"
+        >
+          <div className="text-center px-6 animate-fade-in">
+            <div className="mb-8">
+              <img
+                src="/images/buddha.png"
+                alt="Buddha"
+                className="w-32 h-36 md:w-40 md:h-44 mx-auto mb-6 drop-shadow-2xl animate-pulse"
+              />
+            </div>
+            <h1 className="font-serif text-4xl md:text-6xl text-white mb-6 italic">
+              {language === "en" ? "Welcome" : "स्वागत"}
+            </h1>
+            <p className="text-gold text-xl md:text-2xl mb-8 tracking-wide">
+              {language === "en" ? "Ankita & Priyesh" : "अंकिता आणि प्रियेश"}
+            </p>
+            <div className="animate-bounce mt-12">
+              <p className="text-white/90 text-lg md:text-xl font-medium">
+                {language === "en" ? "Click to Enter" : "प्रवेश"}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Language Toggle Button */}
       <button
         onClick={() => setLanguage(language === "en" ? "mr" : "en")}
