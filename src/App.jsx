@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Calendar,
   MapPin,
@@ -234,6 +234,8 @@ function App() {
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState({});
   const [language, setLanguage] = useState("en");
+  const audioRef = useRef(null);
+  const hasStartedRef = useRef(false);
 
   const t = translations[language];
 
@@ -244,45 +246,44 @@ function App() {
   }, []);
 
   useEffect(() => {
-    // Auto-play background music
-    const audio = new Audio("/song.mp3");
-    audio.loop = true;
-    audio.volume = 0.3;
+    // Initialize audio
+    if (!audioRef.current) {
+      audioRef.current = new Audio("/song.mp3");
+      audioRef.current.loop = true;
+      audioRef.current.volume = 0.3;
+      audioRef.current.preload = "auto";
+    }
 
-    // Try to play immediately on load
-    const attemptPlay = () => {
-      audio.play().catch(() => {
-        // Silently fail on autoplay block
-      });
-    };
+    const audio = audioRef.current;
 
-    // Try immediate autoplay
-    attemptPlay();
-
-    // Also try on any user interaction
-    const handleInteraction = () => {
-      if (audio.paused) {
-        audio.play().catch(() => {});
+    // Function to start playing music
+    const startMusic = () => {
+      if (!hasStartedRef.current && audio.paused) {
+        audio.play()
+          .then(() => {
+            hasStartedRef.current = true;
+            console.log("Music started successfully");
+          })
+          .catch((err) => {
+            console.log("Autoplay blocked, waiting for user interaction:", err);
+          });
       }
     };
 
-    // Add multiple event listeners for different types of interactions
-    const events = [
-      "click",
-      "touchstart",
-      "scroll",
-      "mousemove",
-      "keydown",
-      "mousedown",
-      "touchmove",
-    ];
+    // Try immediate autoplay
+    startMusic();
+
+    // Fallback: play on any user interaction
+    const handleInteraction = () => {
+      startMusic();
+    };
+
+    const events = ['click', 'touchstart', 'scroll', 'mousemove', 'keydown'];
     events.forEach((event) => {
-      document.addEventListener(event, handleInteraction, { once: true });
+      document.addEventListener(event, handleInteraction, { once: true, passive: true });
     });
 
     return () => {
-      audio.pause();
-      audio.currentTime = 0;
       events.forEach((event) => {
         document.removeEventListener(event, handleInteraction);
       });
