@@ -244,6 +244,35 @@ function App() {
   }, []);
 
   useEffect(() => {
+    // Auto-play background music
+    const audio = new Audio("/song.mp3");
+    audio.loop = true;
+    audio.volume = 0.3;
+
+    // Try to play automatically
+    const playAudio = () => {
+      audio.play().catch((error) => {
+        console.log("Autoplay prevented:", error);
+        // If autoplay is blocked, play on first user interaction
+        const handleInteraction = () => {
+          audio.play();
+          document.removeEventListener("click", handleInteraction);
+          document.removeEventListener("touchstart", handleInteraction);
+        };
+        document.addEventListener("click", handleInteraction);
+        document.addEventListener("touchstart", handleInteraction);
+      });
+    };
+
+    playAudio();
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+  useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
