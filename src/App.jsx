@@ -246,6 +246,8 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log("🎵 Audio initialization started...");
+
     // Initialize audio
     if (!audioRef.current) {
       const audio = new Audio();
@@ -254,50 +256,75 @@ function App() {
       audio.volume = 0.3;
       audio.preload = "auto";
 
+      console.log("🎵 Audio element created with src:", audio.src);
+
       // Add error handling
       audio.addEventListener("error", (e) => {
-        console.error("Audio loading error:", e);
-        console.error("Failed to load audio from:", audio.src);
+        console.error("❌ Audio loading error:", e);
+        console.error("❌ Failed to load audio from:", audio.src);
+        console.error("❌ Error details:", audio.error);
+      });
+
+      audio.addEventListener("loadstart", () => {
+        console.log("⏳ Audio loading started...");
+      });
+
+      audio.addEventListener("canplay", () => {
+        console.log("✅ Audio can play now");
       });
 
       audio.addEventListener("canplaythrough", () => {
-        console.log("Audio loaded and ready to play");
+        console.log("✅ Audio loaded completely and ready to play");
       });
 
       audioRef.current = audio;
     }
 
     const audio = audioRef.current;
+    if (!audio) {
+      console.error("❌ Audio element not initialized");
+      return;
+    }
 
     // Function to start playing music
     const startMusic = () => {
+      console.log("🎵 Attempting to play music...", {
+        paused: audio.paused,
+        hasStarted: hasStartedRef.current,
+        readyState: audio.readyState,
+        src: audio.src,
+      });
+
       if (!hasStartedRef.current && audio.paused) {
         audio
           .play()
           .then(() => {
             hasStartedRef.current = true;
-            console.log("✅ Music started successfully");
+            console.log("✅✅✅ Music started successfully! 🎵🎵🎵");
           })
           .catch((err) => {
-            console.log(
-              "⚠️ Autoplay blocked, will play on first user interaction:",
-              err.message
-            );
+            console.warn("⚠️ Autoplay blocked:", err.message);
+            console.log("💡 Music will play on first user interaction");
           });
+      } else {
+        console.log("ℹ️ Music already started or not paused");
       }
     };
 
     // Try immediate autoplay after a short delay
     const timeout = setTimeout(() => {
+      console.log("⏱️ Trying autoplay after 500ms delay...");
       startMusic();
     }, 500);
 
     // Fallback: play on any user interaction
-    const handleInteraction = () => {
+    const handleInteraction = (event) => {
+      console.log("👆 User interaction detected:", event.type);
       startMusic();
     };
 
     const events = ["click", "touchstart", "scroll", "mousemove", "keydown"];
+    console.log("📋 Registering event listeners for:", events);
     events.forEach((event) => {
       document.addEventListener(event, handleInteraction, {
         once: true,
@@ -306,6 +333,7 @@ function App() {
     });
 
     return () => {
+      console.log("🧹 Cleaning up audio event listeners");
       clearTimeout(timeout);
       events.forEach((event) => {
         document.removeEventListener(event, handleInteraction);
