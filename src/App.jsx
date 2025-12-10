@@ -249,26 +249,43 @@ function App() {
     audio.loop = true;
     audio.volume = 0.3;
 
-    // Try to play automatically
-    const playAudio = () => {
-      audio.play().catch((error) => {
-        console.log("Autoplay prevented:", error);
-        // If autoplay is blocked, play on first user interaction
-        const handleInteraction = () => {
-          audio.play();
-          document.removeEventListener("click", handleInteraction);
-          document.removeEventListener("touchstart", handleInteraction);
-        };
-        document.addEventListener("click", handleInteraction);
-        document.addEventListener("touchstart", handleInteraction);
+    // Try to play immediately on load
+    const attemptPlay = () => {
+      audio.play().catch(() => {
+        // Silently fail on autoplay block
       });
     };
 
-    playAudio();
+    // Try immediate autoplay
+    attemptPlay();
+
+    // Also try on any user interaction
+    const handleInteraction = () => {
+      if (audio.paused) {
+        audio.play().catch(() => {});
+      }
+    };
+
+    // Add multiple event listeners for different types of interactions
+    const events = [
+      "click",
+      "touchstart",
+      "scroll",
+      "mousemove",
+      "keydown",
+      "mousedown",
+      "touchmove",
+    ];
+    events.forEach((event) => {
+      document.addEventListener(event, handleInteraction, { once: true });
+    });
 
     return () => {
       audio.pause();
       audio.currentTime = 0;
+      events.forEach((event) => {
+        document.removeEventListener(event, handleInteraction);
+      });
     };
   }, []);
 
