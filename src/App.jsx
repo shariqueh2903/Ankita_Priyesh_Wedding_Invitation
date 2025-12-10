@@ -107,7 +107,7 @@ const FloatingFlower = ({ style, delay }) => (
       animationDuration: "6s",
     }}
   >
-    <LotusIcon className="w-8 h-6 text-gold" />
+    <img src="/images/Image9.png" alt="Lotus" className="w-8 h-6" />
   </div>
 );
 
@@ -120,8 +120,10 @@ const Divider = ({ light = false }) => (
     <Star
       className={`w-4 h-4 ${light ? "text-gold" : "text-gold"} animate-pulse`}
     />
-    <LotusIcon
-      className={`w-10 h-6 ${light ? "text-white/70" : "text-maroon/60"}`}
+    <img
+      src="/images/Image9.png"
+      alt="Lotus"
+      className={`w-10 h-10 ${light ? "opacity-70" : "opacity-60"}`}
     />
     <Star
       className={`w-4 h-4 ${light ? "text-gold" : "text-gold"} animate-pulse`}
@@ -629,13 +631,13 @@ function App() {
         </div>{" "}
         {/* Decorative */}
         <div className="absolute top-10 left-10 opacity-20 animate-float">
-          <LotusIcon className="w-24 h-16 text-gold" />
+          <img src="/images/Image9.png" alt="Lotus" className="w-24 h-20" />
         </div>
         <div
           className="absolute bottom-10 right-10 opacity-20 animate-float"
           style={{ animationDelay: "3s" }}
         >
-          <LotusIcon className="w-24 h-16 text-gold" />
+          <img src="/images/Image9.png" alt="Lotus" className="w-24 h-20" />
         </div>
         {/* Sparkles */}
         <SparkleEffect />
@@ -665,7 +667,7 @@ function App() {
               </p>
               <a
                 href="tel:+918149242289"
-                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-maroon to-maroon/90 text-white px-8 sm:px-10 py-4 rounded-full font-semibold hover:from-gold hover:to-gold hover:text-maroon transition-all duration-300 active:scale-95 text-base sm:text-lg shadow-xl hover:scale-110 min-h-[48px]"
+                className="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-maroon to-maroon/90 text-white px-8 sm:px-10 py-4 rounded-full font-semibold hover:from-maroom hover:to-maroom hover:text-gold transition-all duration-300 active:scale-95 text-base sm:text-lg shadow-xl hover:scale-110 min-h-[48px]"
               >
                 <Phone className="w-5 h-5" />
                 +91 81492 42289
@@ -708,11 +710,11 @@ function App() {
           <Divider light />
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-cream/60 text-xs sm:text-sm px-4">
-            <LotusIcon className="w-6 h-4 text-gold/50" />
+            <img src="/images/Image9.png" alt="Lotus" className="w-6 h-4 opacity-50" />
             <span>{t.coupleNames}</span>
             <span className="text-gold">|</span>
             <span>25th January 2026</span>
-            <LotusIcon className="w-6 h-4 text-gold/50" />
+            <img src="/images/Image9.png" alt="Lotus" className="w-6 h-4 opacity-50" />
           </div>
 
           {/* Willovate Footer */}
