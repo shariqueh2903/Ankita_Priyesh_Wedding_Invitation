@@ -179,12 +179,14 @@ const translations = {
     noAher: "🙏 No Aher Please 🙏",
     from: "From",
     contactPerson: "Mohit Mahendra Patil",
-    contactAddress1: "Plot No. 960, Buddha Nagar Unit no. 1",
+    contactAddress1: "Plot No. 960, Buddha Nagar Unit no. 1, ",
     contactAddress2: "Dr. Ambedkar Marg",
     contactAddress3: "Nagpur - 440017",
     namoBuddhay: "Namo Buddhay",
     footerMessage: "We look forward to celebrating this special day with you",
     coupleNames: "Ankita & Priyesh",
+    brideName: "Ankita",
+    groomName: "Priyesh",
     designedBy: "Designed by",
     willovate: "Willovate Private Limited",
   },
@@ -215,12 +217,14 @@ const translations = {
     noAher: "🙏 कृपया अहेर नको 🙏",
     from: "तर्फे",
     contactPerson: "मोहित महेंद्र पाटील",
-    contactAddress1: "प्लॉट क्र. ९६०, बुद्धा नगर युनिट क्र. १",
+    contactAddress1: "प्लॉट क्र. ९६०, बुद्धा नगर युनिट क्र. १, ",
     contactAddress2: "डॉ. आंबेडकर मार्ग",
     contactAddress3: "नागपूर - ४४००१७",
     namoBuddhay: "नमो बुद्धाय",
     footerMessage: "या खास दिवसाची आपल्यासोबत साजरी करण्यासाठी उत्सुक आहोत",
     coupleNames: "अंकिता आणि प्रियेश",
+    brideName: "अंकिता",
+    groomName: "प्रियेश",
     designedBy: "डिझाइन केले",
     willovate: "विलोवेट प्रायव्हेट लिमिटेड",
   },
@@ -273,12 +277,12 @@ function App() {
       </button>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[128vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2070')`,
+            backgroundImage: `url('/images/image5.jpg')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-b from-cream/85 via-cream/80 to-cream/85"></div>
@@ -339,7 +343,7 @@ function App() {
           {/* Bride Name */}
           <div className="mb-8 animate-fade-in-up animation-delay-800 group">
             <h2 className="font-serif text-5xl sm:text-6xl md:text-8xl text-maroon italic drop-shadow-sm group-hover:scale-105 transition-transform duration-500 cursor-default">
-              Ankita
+              {t.brideName}
             </h2>
           </div>
 
@@ -353,7 +357,7 @@ function App() {
           {/* Groom Name */}
           <div className="mb-8 animate-fade-in-up animation-delay-1000 group">
             <h2 className="font-serif text-5xl sm:text-6xl md:text-8xl text-maroon italic drop-shadow-sm group-hover:scale-105 transition-transform duration-500 cursor-default">
-              Priyesh
+              {t.groomName}
             </h2>
           </div>
 
@@ -389,12 +393,6 @@ function App() {
                 {t.weddingTime}
               </p>
             </div>
-          </div>
-        </div>
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-maroon/50 rounded-full flex justify-center bg-white/30 backdrop-blur-sm">
-            <div className="w-1.5 h-3 bg-maroon/70 rounded-full mt-2 animate-scroll-down"></div>
           </div>
         </div>
       </section>
@@ -499,13 +497,13 @@ function App() {
       <section
         id="welcome"
         data-animate
-        className="relative py-20 md:py-32 overflow-hidden"
+        className="relative py-12 md:py-32 overflow-hidden"
       >
         {/* Background */}
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1607190074257-dd4b7af0309f?q=80&w=2070')`,
+            backgroundImage: "url('/images/image1.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-cream/85"></div>
@@ -521,7 +519,11 @@ function App() {
           }`}
         >
           <div className="max-w-3xl mx-auto text-center">
-            <LotusIcon className="w-16 h-10 text-gold mx-auto mb-6 animate-pulse" />
+            <img
+              src="/images/Image9.png"
+              alt="Lotus"
+              className="w-28 h-28 mx-auto mb-6 animate-pulse"
+            />
 
             <h2 className="font-serif text-3xl md:text-5xl text-maroon mb-8 italic">
               {t.welcomeTitle}
@@ -563,7 +565,7 @@ function App() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2070')`,
+            backgroundImage: `url('/images/image3.jpg')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-maroon/85 via-maroon/80 to-maroon/85"></div>
@@ -598,7 +600,6 @@ function App() {
               <div className="w-20 h-0.5 bg-gradient-to-r from-transparent via-gold to-transparent mx-auto mb-6"></div>
               <p className="text-gray-600 text-base sm:text-lg md:text-xl leading-relaxed mb-8 px-2">
                 {t.contactAddress1}
-                <br />
                 {t.contactAddress2}
                 <br />
                 <span className="font-semibold text-maroon">
