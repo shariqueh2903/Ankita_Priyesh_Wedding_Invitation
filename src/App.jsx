@@ -40,6 +40,23 @@ const LotusIcon = ({ className }) => (
   </svg>
 );
 
+// Heart SVG Component for Love Marriage Theme
+const HeartIcon = ({ className }) => (
+  <svg viewBox="0 0 100 100" className={className} fill="currentColor">
+    <path d="M50 85 C25 70, 10 50, 10 35 C10 20, 20 10, 30 10 C40 10, 45 15, 50 25 C55 15, 60 10, 70 10 C80 10, 90 20, 90 35 C90 50, 75 70, 50 85 Z" />
+  </svg>
+);
+
+// Infinity Symbol for Eternal Love
+const InfinityIcon = ({ className }) => (
+  <svg viewBox="0 0 100 50" className={className} fill="currentColor">
+    <path
+      d="M20 25 Q10 15, 15 10 Q20 5, 30 10 Q40 15, 50 25 Q60 35, 70 40 Q80 45, 85 40 Q90 35, 85 25 Q80 15, 70 10 Q60 5, 50 10 Q40 15, 30 10 Q20 5, 15 10 Q10 15, 15 25 Q20 35, 30 40 Q40 45, 50 40 Q60 35, 70 30 Q80 25, 85 25"
+      opacity="0.8"
+    />
+  </svg>
+);
+
 // Mandala Pattern Component
 const MandalaPattern = ({ className }) => (
   <svg
@@ -157,10 +174,12 @@ const translations = {
   en: {
     weddingInvitation: "Wedding Invitation",
     buddhistQuote: "॥ Atta Deep Bhava ॥",
-    brideParents: "Smt. Sujata & Late Mahendraji Patil",
-    brideParentsText:
-      "Cordially solicit your gracious presence to shower your blessings on the auspicious occasion of the wedding of their Daughter",
-    groomParents: "Smt. Ranjana & Late Padmakarji Gondane",
+    invitationText:
+      "Together with their families, cordially invite you to share in the joy and blessings of their wedding ceremony",
+    brideParents: "D/o Smt. Sujata & Late Mahendraji Patil",
+    groomParents: "S/o Smt. Ranjana & Late Padmakarji Gondane",
+    brideLocation: "Nagpur",
+    groomLocation: "Nagpur",
     location: "NAGPUR",
     weddingCeremony: "Wedding Ceremony",
     weddingDate: "Sunday, 25th January 2026",
@@ -191,14 +210,18 @@ const translations = {
     groomName: "Priyesh",
     designedBy: "Designed by",
     willovate: "Willovate Private Limited",
+    loveQuote: "Two hearts, one journey",
+    unityMessage: "United by love, blessed by families, celebrating together",
   },
   mr: {
     weddingInvitation: "विवाह निमंत्रण",
     buddhistQuote: "॥ अत्त दीप भव ॥",
-    brideParents: "सौ. सुजाता व स्व. महेंद्रजी पाटील",
-    brideParentsText:
-      "यांच्या कन्येच्या विवाहसोहळ्यास आपल्या शुभाशीर्वादाची विनम्र विनंती",
-    groomParents: "सौ. रंजना व स्व. पद्मकरजी गोंडाणे",
+    invitationText:
+      "त्यांच्या कुटुंबीयांसह, त्यांच्या विवाहसोहळ्याच्या आनंदात आणि आशीर्वादात सहभागी होण्यासाठी आपले हार्दिक स्वागत करत आहेत",
+    brideParents: "सौ. सुजाता व स्व. महेंद्रजी पाटील यांची सुकन्या",
+    groomParents: "पुत्र सौ. रंजना व स्व. पद्मकरजी गोंडाणे यांचे चिरंजीव",
+    brideLocation: "नागपूर",
+    groomLocation: "नागपूर",
     location: "नागपूर",
     weddingCeremony: "विवाहसोहळा",
     weddingDate: "रविवार, २५ जानेवारी २०२६",
@@ -229,6 +252,9 @@ const translations = {
     groomName: "प्रियेश",
     designedBy: "डिझाइन केले",
     willovate: "विलोवेट प्रायव्हेट लिमिटेड",
+    loveQuote: "दोन हृदये, एक प्रवास",
+    unityMessage:
+      "प्रेमाने जोडलेले, कुटुंबांनी आशीर्वादित, एकत्र साजरे करत आहोत",
   },
 };
 
@@ -336,7 +362,7 @@ function App() {
       </button>
 
       {/* Hero Section */}
-      <section className="relative min-h-[128vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[155vh] flex items-center justify-center overflow-hidden">
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -382,75 +408,155 @@ function App() {
           </p>
 
           {/* Wedding Title */}
-          <h1 className="font-serif text-4xl md:text-6xl text-maroon mb-10 italic animate-fade-in-up animation-delay-400 drop-shadow-sm">
+          <h1 className="font-serif text-4xl md:text-6xl text-maroon mb-8 italic animate-fade-in-up animation-delay-400 drop-shadow-sm">
             {t.weddingInvitation}
           </h1>
 
           <Divider />
 
-          {/* Bride's Parents */}
-          <div className="mb-10 animate-fade-in-up animation-delay-600">
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-              <span className="font-semibold text-maroon">
-                {t.brideParents}
-              </span>
-              <br />
-              <span className="italic">{t.brideParentsText}</span>
+          {/* Invitation Text from Both */}
+          <div className="mb-12 animate-fade-in-up animation-delay-600">
+            <p className="text-maroon text-sm md:text-base leading-relaxed max-w-2xl mx-auto italic font-medium">
+              {t.invitationText}
             </p>
           </div>
 
-          {/* Bride Name */}
-          <div className="mb-8 animate-fade-in-up animation-delay-800 group">
-            <h2 className="font-serif text-5xl sm:text-6xl md:text-8xl text-maroon italic drop-shadow-sm group-hover:scale-105 transition-transform duration-500 cursor-default">
-              {t.brideName}
-            </h2>
-          </div>
+          {/* Couple Container with Premium Styling */}
+          <div className="relative max-w-4xl mx-auto px-4">
+            {/* Bride Section */}
+            <div className="text-center mb-10 animate-fade-in-up animation-delay-800">
+              {/* Bride Name */}
+              <h2 className="font-serif text-6xl sm:text-7xl md:text-8xl text-maroon italic drop-shadow-lg mb-4 leading-none">
+                {t.brideName}
+              </h2>
 
-          {/* & Symbol */}
-          <div className="relative my-6">
-            <span className="font-serif text-4xl md:text-5xl text-gold drop-shadow-md animate-pulse-slow">
-              &
-            </span>
-          </div>
+              {/* Bride Parents - Elegant Typography */}
+              <div className="mt-4">
+                <p className="text-maroon/80 text-sm sm:text-base md:text-lg font-medium tracking-wide">
+                  {t.brideParents}
+                </p>
+                <p className="text-maroon/60 text-xs sm:text-sm tracking-widest uppercase mt-1">
+                  {t.brideLocation}
+                </p>
+              </div>
+            </div>
 
-          {/* Groom Name */}
-          <div className="mb-8 animate-fade-in-up animation-delay-1000 group">
-            <h2 className="font-serif text-5xl sm:text-6xl md:text-8xl text-maroon italic drop-shadow-sm group-hover:scale-105 transition-transform duration-500 cursor-default">
-              {t.groomName}
-            </h2>
-          </div>
+            {/* Center Divider with Heart */}
+            <div className="flex items-center justify-center gap-4 my-8 animate-fade-in-up animation-delay-900">
+              <div className="w-16 sm:w-24 h-px bg-gradient-to-r from-transparent via-maroon/40 to-maroon/40"></div>
+              <div className="relative">
+                <HeartIcon className="w-5 h-5 sm:w-6 sm:h-6 text-rose-500 animate-heart-beat" />
+              </div>
+              <div className="bg-maroon/10 px-5 py-2 rounded-full">
+                <span className="font-serif text-3xl sm:text-4xl text-maroon">
+                  &
+                </span>
+              </div>
+              <div className="relative">
+                <HeartIcon
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-rose-500 animate-heart-beat"
+                  style={{ animationDelay: "0.5s" }}
+                />
+              </div>
+              <div className="w-16 sm:w-24 h-px bg-gradient-to-l from-transparent via-maroon/40 to-maroon/40"></div>
+            </div>
 
-          {/* Groom's Parents */}
-          <div className="mt-10 animate-fade-in-up animation-delay-1200">
-            <p className="text-gray-700 text-sm md:text-base leading-relaxed">
-              S/o{" "}
-              <span className="font-semibold text-maroon">
-                {t.groomParents}
-              </span>
-              <br />
-              <span className="text-maroon font-semibold tracking-widest text-lg">
-                {t.location}
-              </span>
-            </p>
+            {/* Groom Section */}
+            <div className="text-center mt-10 animate-fade-in-up animation-delay-1000">
+              {/* Groom Name */}
+              <h2 className="font-serif text-6xl sm:text-7xl md:text-8xl text-maroon italic drop-shadow-lg mb-4 leading-none">
+                {t.groomName}
+              </h2>
+
+              {/* Groom Parents - Elegant Typography */}
+              <div className="mt-4">
+                <p className="text-maroon/80 text-sm sm:text-base md:text-lg font-medium tracking-wide">
+                  {t.groomParents}
+                </p>
+                <p className="text-maroon/60 text-xs sm:text-sm tracking-widest uppercase mt-1">
+                  {t.groomLocation}
+                </p>
+              </div>
+            </div>
           </div>
 
           <Divider />
 
-          {/* Wedding Date */}
+          {/* Wedding Date - Premium Card */}
           <div className="mt-8 sm:mt-12 animate-fade-in-up animation-delay-1400">
-            <div className="bg-white/70 backdrop-blur-md border-2 border-maroon/20 rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-10 inline-block shadow-xl hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 max-w-full mx-2 sm:mx-4">
-              <p className="text-maroon text-lg sm:text-xl md:text-2xl font-serif mb-3 italic">
-                {t.weddingCeremony}
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-maroon mb-2">
-                <Calendar className="w-6 h-6 md:w-7 md:h-7 text-gold" />
-                <span className="text-xl sm:text-2xl md:text-4xl font-serif font-semibold text-center">
-                  {t.weddingDate}
-                </span>
+            <div className="relative bg-gradient-to-br from-cream via-white to-rose-50/70 backdrop-blur-md border-3 border-maroon/20 rounded-2xl sm:rounded-3xl p-8 sm:p-12 md:p-14 inline-block shadow-2xl hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 max-w-full mx-2 sm:mx-4 overflow-hidden premium-card-hover">
+              {/* Decorative background pattern */}
+              <div className="absolute inset-0 opacity-5">
+                <div className="absolute top-4 right-4">
+                  <HeartIcon className="w-20 h-20 text-rose-400" />
+                </div>
+                <div className="absolute bottom-4 left-4">
+                  <HeartIcon className="w-20 h-20 text-rose-400" />
+                </div>
               </div>
-              <p className="text-gold text-lg sm:text-xl md:text-2xl font-medium mt-3">
-                {t.weddingTime}
-              </p>
+
+              {/* Golden corner accents */}
+              <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-gold/15 to-transparent rounded-br-full"></div>
+              <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-gold/15 to-transparent rounded-tl-full"></div>
+
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="flex items-center justify-center gap-2 mb-5">
+                  <HeartIcon className="w-5 h-5 text-rose-500 animate-heart-beat" />
+                  <p className="text-maroon text-xl sm:text-2xl md:text-3xl font-serif font-semibold italic">
+                    {t.weddingCeremony}
+                  </p>
+                  <HeartIcon
+                    className="w-5 h-5 text-rose-500 animate-heart-beat"
+                    style={{ animationDelay: "0.3s" }}
+                  />
+                </div>
+
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-4">
+                  <Calendar className="w-7 h-7 md:w-8 md:h-8 text-maroon animate-pulse" />
+                  <span className="text-2xl sm:text-3xl md:text-5xl font-serif font-bold text-center text-maroon drop-shadow-sm">
+                    {t.weddingDate}
+                  </span>
+                </div>
+
+                <div className="w-32 h-px bg-gradient-to-r from-transparent via-maroon/30 to-transparent mx-auto my-5"></div>
+
+                <p className="text-maroon text-xl sm:text-2xl md:text-3xl font-semibold mt-3 flex items-center justify-center gap-3">
+                  <Clock className="w-6 h-6 md:w-7 md:h-7 text-gold" />
+                  {t.weddingTime}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Love Unity Section */}
+      <section className="relative py-12 md:py-16 overflow-hidden bg-gradient-to-b from-cream via-rose-50/30 to-cream">
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="max-w-2xl mx-auto text-center">
+            {/* Decorative Line with Heart */}
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-12 sm:w-20 h-px bg-gradient-to-r from-transparent to-maroon/30"></div>
+              <HeartIcon className="w-5 h-5 text-rose-500" />
+              <div className="w-12 sm:w-20 h-px bg-gradient-to-l from-transparent to-maroon/30"></div>
+            </div>
+
+            {/* Love Quote */}
+            <h3 className="font-serif text-xl sm:text-2xl md:text-3xl text-maroon italic mb-3">
+              {t.loveQuote}
+            </h3>
+
+            {/* Unity Message */}
+            <p className="text-maroon/70 text-sm sm:text-base leading-relaxed font-medium">
+              {t.unityMessage}
+            </p>
+
+            {/* Bottom Decorative Line */}
+            <div className="flex items-center justify-center gap-3 mt-6">
+              <div className="w-12 sm:w-20 h-px bg-gradient-to-r from-transparent to-maroon/30"></div>
+              <HeartIcon className="w-5 h-5 text-rose-500" />
+              <div className="w-12 sm:w-20 h-px bg-gradient-to-l from-transparent to-maroon/30"></div>
             </div>
           </div>
         </div>
@@ -497,7 +603,7 @@ function App() {
             <p className="text-gold text-base md:text-lg tracking-[0.3em] mb-5 uppercase font-semibold">
               {t.venue}
             </p>
-            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-6 italic drop-shadow-lg px-2 sm:px-4">
+            <h2 className="font-serif text-4xl sm:text-4xl md:text-5xl lg:text-6xl text-white mb-6 italic drop-shadow-lg px-2 sm:px-4">
               {t.venueName}
             </h2>
             <Divider light />
@@ -556,7 +662,7 @@ function App() {
       <section
         id="welcome"
         data-animate
-        className="relative py-12 md:py-32 overflow-hidden"
+        className="relative py-12 md:py-24 overflow-hidden"
       >
         {/* Background */}
         <div
@@ -565,47 +671,51 @@ function App() {
             backgroundImage: "url('/images/image1.jpg')",
           }}
         >
-          <div className="absolute inset-0 bg-cream/85"></div>
-        </div>{" "}
-        {/* Floating Mandalas */}
-        <MandalaPattern className="absolute -top-20 -left-20 w-80 h-80 text-maroon/5 animate-spin-slow" />
-        <MandalaPattern className="absolute -bottom-20 -right-20 w-96 h-96 text-gold/5 animate-spin-slow-reverse" />
+          <div className="absolute inset-0 bg-cream/90"></div>
+        </div>
+
+        {/* Subtle Mandala */}
+        <MandalaPattern className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 text-maroon/5" />
+
         <div
-          className={`container mx-auto px-6 md:px-12 relative z-10 transition-all duration-1000 ${
+          className={`container mx-auto px-6 relative z-10 transition-all duration-1000 ${
             isVisible.welcome
               ? "opacity-100 translate-y-0"
               : "opacity-0 translate-y-10"
           }`}
         >
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-2xl mx-auto text-center">
+            {/* Lotus */}
             <img
               src="/images/Image9.png"
               alt="Lotus"
-              className="w-28 h-28 mx-auto mb-6 animate-pulse"
+              className="w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-6 opacity-80"
             />
 
-            <h2 className="font-serif text-3xl md:text-5xl text-maroon mb-8 italic">
+            <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl text-maroon mb-6 italic">
               {t.welcomeTitle}
             </h2>
 
             <Divider />
 
-            <div className="mt-12 space-y-8">
-              <div className="bg-white/70 backdrop-blur-sm rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-10 shadow-xl border border-maroon/10 hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
-                <p className="text-gray-700 text-xl md:text-2xl font-medium">
+            <div className="mt-8 space-y-6">
+              {/* Hosted By - Simple Elegant */}
+              <div className="py-6">
+                <p className="text-maroon text-3xl sm:text-xl md:text-2xl font-medium">
                   {t.hostedBy}
                 </p>
-                <p className="text-gold text-2xl my-2">&</p>
-                <p className="text-gray-700 text-xl md:text-2xl font-medium">
+                <p className="text-gold text-xl my-2">&</p>
+                <p className="text-maroon text-3xl sm:text-xl md:text-2xl font-medium">
                   {t.patilFamily}
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-maroon/5 via-gold/10 to-maroon/5 rounded-xl sm:rounded-2xl p-6 sm:p-8 border border-gold/20 hover:border-gold/40 transition-colors">
-                <p className="text-maroon/70 text-xs sm:text-sm tracking-widest mb-3 uppercase">
+              {/* Sweet Invitation */}
+              <div className="py-4">
+                <p className="text-maroon/60 text-xs sm:text-sm tracking-widest mb-2 uppercase">
                   {t.sweetInvitation}
                 </p>
-                <p className="text-maroon text-xl sm:text-2xl md:text-3xl font-serif italic leading-relaxed">
+                <p className="text-maroon text-2xl sm:text-2xl md:text-3xl font-serif italic">
                   {t.childrenNames}
                 </p>
               </div>
