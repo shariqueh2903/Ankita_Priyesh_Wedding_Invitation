@@ -734,7 +734,7 @@ function App() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{
-            backgroundImage: `url('/images/image3.jpg')`,
+            backgroundImage: `url('/images/image8.jpg')`,
           }}
         >
           <div className="absolute inset-0 bg-gradient-to-br from-maroon/85 via-maroon/80 to-maroon/85"></div>
